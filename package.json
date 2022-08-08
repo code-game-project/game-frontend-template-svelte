@@ -1,0 +1,42 @@
+{
+	"name": "game-frontend-template-svelte",
+	"version": "0.0.1",
+	"description": "A template for building websites for CodeGame game servers using TypeScript and SvelteKit.",
+	"license": "MIT",
+	"author": {
+		"name": "Maxwell Matthis"
+	},
+	"homepage": "https://github.com/code-game-project/game-frontend-template-svelte#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/code-game-project/game-frontend-template-svelte.git"
+	},
+	"bugs": {
+		"url": "https://github.com/code-game-project/game-frontend-template-svelte/issues"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"package": "svelte-kit package",
+		"preview": "vite preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"@types/prismjs": "^1.26.0",
+		"sass": "^1.54.2",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.7.1",
+		"svelte-preprocess": "^4.10.6",
+		"tslib": "^2.3.1",
+		"typescript": "^4.7.4",
+		"vite": "^3.0.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"@code-game-project/client": "^0.1.3",
+		"prismjs": "^1.28.0"
+	}
+}
