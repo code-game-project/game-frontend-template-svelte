@@ -1,0 +1,18 @@
+# This is the security.txt file for MyGame
+# <repository URL>
+# More information about security.txt
+# https://securitytxt.org
+
+# Consider not trusting this file when served without SSL!
+
+# Submit an issue on GitHub
+Contact: <URL to issues tab of repository>
+
+# Send the maintainer an email
+Contact: <maintainer email>
+
+# When will this file be invalid?
+Expires: Wed, 1 Jan 2025 00:00 +0100
+
+# Our preferred languages
+Preferred-Languages: <your preferred languages (for example: en, fr, zh)>

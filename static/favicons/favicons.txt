@@ -1,0 +1,10 @@
+This favicon was generated using the following font:
+
+- Font Title: Source Code Pro
+- Font Author: © 2010 - 2020 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name ‘Source’.
+- Font Source: http://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQhM5hTXUcdJg.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
+- Font Size: 50
+- Font Color: #f5f5f5
+
+- Background: #272930
