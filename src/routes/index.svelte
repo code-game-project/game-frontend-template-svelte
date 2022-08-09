@@ -126,7 +126,7 @@
 							<TableCell>{players}</TableCell>
 							<TableCell>
 								<a href="/spectate?game_id={id}">Spectate</a>,&nbsp;
-								<a href="/" on:click|preventDefault={() => showPopup(id)}
+								<a href="#null" on:click|preventDefault={() => showPopup(id)}
 									>Details</a
 								>
 							</TableCell>
