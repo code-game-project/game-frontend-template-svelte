@@ -97,6 +97,7 @@
 							src="/icons/error.svg"
 							alt="Error"
 							title="Add errors to filter."
+							on:click={() => (filter['error'] = !filter['error'])}
 						/>
 					</div>
 					<div>
@@ -105,6 +106,7 @@
 							src="/icons/warning.svg"
 							alt="warning"
 							title="Add warnings to filter."
+							on:click={() => (filter['warning'] = !filter['warning'])}
 						/>
 					</div>
 					<div>
@@ -113,6 +115,7 @@
 							src="/icons/info.svg"
 							alt="info"
 							title="Add infos to filter."
+							on:click={() => (filter['info'] = !filter['info'])}
 						/>
 					</div>
 					<div>
@@ -121,6 +124,7 @@
 							src="/icons/trace.svg"
 							alt="trace"
 							title="Add traces to filter."
+							on:click={() => (filter['trace'] = !filter['trace'])}
 						/>
 					</div>
 				</div>
