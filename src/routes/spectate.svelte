@@ -102,7 +102,7 @@
 		<p>
 			This page features an example score board as well as a canvas with a blue
 			background color and a green square on it. These are just examples of
-			elements you can use to create a way to view whats happening in your game.
+			elements you can use to create a way to view what's happening in your game.
 		</p>
 	</section>
 	<section bind:clientWidth={canvasContainerWidth}>
