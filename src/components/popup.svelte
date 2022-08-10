@@ -41,6 +41,7 @@
 		justify-content: center;
 	}
 	div.popup {
+		margin-top: -10vh;
 		width: 500px;
 		padding: var(--padding);
 		background-color: var(--background);
