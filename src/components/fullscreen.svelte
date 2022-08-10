@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, createEventDispatcher } from 'svelte';
+	import ButtonIcon from './button-icon.svelte';
 	const dispatch = createEventDispatcher();
 
 	export let maxHeightPx: number | null = null;
@@ -66,7 +67,9 @@
 	class="fs"
 	class:isFullscreen
 	bind:this={fsContainer}
-	style={isFullscreen || maxHeightPx === null ? '' : `max-height: ${maxHeightPx}px;`}
+	style={isFullscreen || maxHeightPx === null
+		? ''
+		: `max-height: ${maxHeightPx}px;`}
 >
 	<div id="header">
 		<slot name="header" />
@@ -76,9 +79,19 @@
 	</div>
 	{#if fullscreenSupport}
 		<div id="controls">
-			<a href="#null" on:click|preventDefault={fsToggle}>
-				{#if isFullscreen}Exit{:else}Show in{/if} full screen
-			</a>
+			{#if isFullscreen}
+				<ButtonIcon on:click={fsToggle}
+					><img src="/icons/minimize.svg" alt="Exit full screen" /></ButtonIcon
+				>
+			{:else}
+				<ButtonIcon
+					><img
+						on:click={fsToggle}
+						src="/icons/maximize.svg"
+						alt="Show in full screen"
+					/></ButtonIcon
+				>
+			{/if}
 		</div>
 	{/if}
 </div>
