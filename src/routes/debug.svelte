@@ -27,7 +27,12 @@
 		info: true,
 		trace: false,
 	};
-	let logs: { severity: Severity; message: string; data: string | null }[] = [];
+	let logs: {
+		severity: Severity;
+		timeReceived: string;
+		message: string;
+		data: string | null;
+	}[] = [];
 	$: presentVisible = Object.entries(filter).some(
 		([k, v]) => v && present[k as Severity]
 	);
@@ -35,10 +40,12 @@
 
 	const addLog = (severity: Severity, message: string, data?: object) => {
 		present[severity] = true;
+		const now = new Date(Date.now());
 		logs = [
 			...logs,
 			{
 				severity: severity,
+				timeReceived: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
 				message,
 				data: data
 					? Prism.highlight(

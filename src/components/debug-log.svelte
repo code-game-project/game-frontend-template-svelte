@@ -3,6 +3,7 @@
 
 	export let visible: boolean;
 	export let severity: Severity;
+	export let timeReceived: string;
 	export let message: string;
 	export let data: string | null;
 	let unfolded = false;
@@ -13,14 +14,22 @@
 		<div class="top" on:click={() => (unfolded = !unfolded)}>
 			<img src="/icons/{severity}.svg" alt={severity.toUpperCase()} />
 			<div>
-				<span>{message}</span>
-				<img src="/icons/arrow-right.svg" alt="arrow" class:unfolded />
+				<div>
+					<span class="mono">[{timeReceived}]</span>
+					<span>{message}</span>
+				</div>
+				<img
+					src="/icons/arrow-right.svg"
+					alt="arrow"
+					class:unfolded
+					title="Show more"
+				/>
 			</div>
 		</div>
 		{#if data && unfolded}
 			<div class="bottom">
 				<div />
-				<pre><code>{@html data}</code></pre>
+				<pre><code class="mono">{@html data}</code></pre>
 			</div>
 		{/if}
 	</div>
