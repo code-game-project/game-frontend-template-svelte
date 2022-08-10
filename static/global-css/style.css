@@ -14,6 +14,11 @@
   src: url(/fonts/Roboto/Roboto-Regular.ttf);
 }
 
+@font-face {
+  font-family: 'RobotoMono-Light';
+  src: url(/fonts/Roboto_Mono/RobotoMono-Light.ttf);
+}
+
 body {
   background-color: var(--background);
 }
@@ -47,4 +52,19 @@ a {
   font-family: 'Roboto-Regular';
   text-decoration: none;
   color: var(--primary-light);
+}
+
+code,
+.mono {
+  font-family: 'RobotoMono-Light';
+  font-size: 14px;
+}
+
+code {
+  display: block;
+  padding: var(--padding);
+  background-color: hsla(0, 0%, 0%, 0.6);
+  border-radius: var(--radius);
+  max-height: 300px;
+  overflow: auto;
 }

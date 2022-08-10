@@ -106,7 +106,7 @@
 					{#each publicGames as { id, players, active }}
 						<TableRow {columWidths}>
 							<TableCell>
-								<span class="mono">{id}</span>
+								<span class="mono game-id">{id}</span>
 								<Tooltip tipText="Copied!" tipWidthPx={80} {active}>
 									<ButtonIcon
 										on:click={() => {
@@ -148,31 +148,15 @@
 <style lang="scss" scoped>
 	@import 'prismjs/themes/prism-tomorrow.css';
 
-	@font-face {
-		font-family: 'RobotoMono-Light';
-		src: url(/fonts/Roboto_Mono/RobotoMono-Light.ttf);
-	}
-
 	h2 {
 		margin-top: var(--padding);
 	}
 
-	span.mono {
-		font-family: 'RobotoMono-Light';
+	span.game-id {
 		padding-right: var(--padding);
 	}
 
 	pre {
 		display: contents;
-	}
-
-	code {
-		display: block;
-		font-family: 'RobotoMono-Light';
-		padding: var(--padding);
-		background-color: hsla(0, 0%, 0%, 0.6);
-		border-radius: var(--radius);
-		max-height: 300px;
-		overflow: auto;
 	}
 </style>
