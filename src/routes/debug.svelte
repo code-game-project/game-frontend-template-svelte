@@ -165,11 +165,11 @@
 		div#filters {
 			display: flex;
 			div {
-				padding-left: var(--padding);
+				margin-left: var(--padding);
 				display: flex;
 				align-items: center;
 				img {
-					padding-left: calc(var(--padding) / 2);
+					margin-left: calc(var(--padding) / 2);
 				}
 			}
 		}
