@@ -3,6 +3,7 @@
 	import { createSocket } from '@code-game-project/client/dist/browser';
 	import ErrorStack from '../components/error-stack.svelte';
 	import Header from '../components/header.svelte';
+	import Fullscreen from '../components/fullscreen.svelte';
 	import Table from '../components/table.svelte';
 	import TableRow from '../components/table-row.svelte';
 	import TableEmpty from '../components/table-empty.svelte';
@@ -12,6 +13,42 @@
 
 	let errors: string[] = [];
 	let canvas: HTMLCanvasElement;
+	let ctx: CanvasRenderingContext2D | null;
+	let isFullscreen: boolean;
+	let canvasContainerWidth: number;
+	let width = 300;
+	let height = (width / 16) * 9;
+
+	const resize = () => {
+		width = isFullscreen ? window.screen.availWidth : canvasContainerWidth;
+		height = isFullscreen ? window.screen.availHeight : (width / 16) * 9;
+		// give the canvas time to resize, which has the side effect of clearing before redrawing
+		setTimeout(draw, 0);
+	};
+
+	let dt = 0;
+	const draw = () => {
+		if (ctx) {
+			dt += 0.002 % 1;
+
+			const cx = width / 2;
+			const cy = height / 2;
+			const w = 200;
+			const h = 200;
+			const x = -w / 2;
+			const y = -h / 2;
+			const deg = dt * 360;
+
+			ctx.save();
+			ctx.clearRect(0, 0, width, height);
+			ctx.translate(cx, cy);
+			ctx.rotate((deg * Math.PI) / 180);
+			ctx.fillStyle = '#37ff00';
+			ctx.fillRect(x, y, w, h);
+			ctx.restore();
+		}
+	};
+
 	let columWidths = '80% 20%';
 	let finishers: { name: string; score: number }[] = [
 		{
@@ -34,11 +71,9 @@
 	];
 
 	onMount(async () => {
-		const ctx = canvas.getContext('2d');
-		if (ctx) {
-			ctx.fillStyle = '#37ff00';
-			ctx.fillRect(10, 10, 60, 40);
-		}
+		ctx = canvas.getContext('2d');
+		resize();
+		setInterval(draw, 1000 / 30);
 		const gameId = new URLSearchParams(window.location.search).get('game_id');
 		if (gameId) {
 			try {
@@ -70,8 +105,10 @@
 			elements you can use to create a way to view whats happening in your game.
 		</p>
 	</section>
-	<section>
-		<canvas bind:this={canvas} />
+	<section bind:clientWidth={canvasContainerWidth}>
+		<Fullscreen bind:isFullscreen on:fullscreenChange={resize}>
+			<canvas slot="content" bind:this={canvas} {width} {height} />
+		</Fullscreen>
 	</section>
 	<section>
 		<Table minWidthPx={300}>
@@ -101,6 +138,7 @@
 
 <style lang="scss" scoped>
 	canvas {
+		width: 100%;
 		background-color: hsl(208, 100%, 50%);
 	}
 </style>
