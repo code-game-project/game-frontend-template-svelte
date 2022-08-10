@@ -40,7 +40,7 @@
 	let description: string = 'N/A';
 	let privateGames: number | 'N/A' = 'N/A';
 	let publicGames: { id: string; players: number; active: boolean }[];
-	let columWidths = '70% 10% 20%';
+	let columWidths = '65% 10% 25%';
 
 	onMount(async () => {
 		const info = await getInfo();
@@ -125,10 +125,13 @@
 							</TableCell>
 							<TableCell>{players}</TableCell>
 							<TableCell>
-								<a href="/spectate?game_id={id}">Spectate</a>,&nbsp;
-								<a href="#null" on:click|preventDefault={() => showPopup(id)}
-									>Details</a
-								>
+								<div style="overflow-wrap: normal;">
+									<a href="/spectate?game_id={id}">Spectate</a>,&nbsp;
+									<a href="/debug?game_id={id}">Debug</a>,&nbsp;
+									<a href="#null" on:click|preventDefault={() => showPopup(id)}
+										>Details</a
+									>
+								</div>
 							</TableCell>
 						</TableRow>
 					{/each}
