@@ -18,12 +18,14 @@
 					<span class="mono">[{timeReceived}]</span>
 					<span>{message}</span>
 				</div>
-				<img
-					src="/icons/arrow-right.svg"
-					alt="arrow"
-					class:unfolded
-					title="Show more"
-				/>
+				{#if data}
+					<img
+						src="/icons/arrow-right.svg"
+						alt="arrow"
+						class:unfolded
+						title="Show more"
+					/>
+				{/if}
 			</div>
 		</div>
 		{#if data && unfolded}
