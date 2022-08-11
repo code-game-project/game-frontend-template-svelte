@@ -38,14 +38,29 @@
 	);
 	$: allHidden = !Object.values(filter).some((v) => v);
 
+	function formatTime(date: Date) {
+		const formatSegment = (number: number) => {
+			let numberAsString = number.toString();
+			return numberAsString.length === 2
+				? numberAsString
+				: '0' + numberAsString;
+		};
+		return (
+			formatSegment(date.getHours()) +
+			':' +
+			formatSegment(date.getMinutes()) +
+			':' +
+			formatSegment(date.getSeconds())
+		);
+	}
+
 	const addLog = (severity: Severity, message: string, data?: object) => {
 		present[severity] = true;
-		const now = new Date(Date.now());
 		logs = [
 			...logs,
 			{
 				severity: severity,
-				timeReceived: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+				timeReceived: formatTime(new Date(Date.now())),
 				message,
 				data: data
 					? Prism.highlight(
