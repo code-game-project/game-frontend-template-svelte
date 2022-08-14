@@ -1,11 +1,21 @@
 <script lang="ts">
+	import Prism from 'prismjs';
 	import type { Severity } from '@code-game-project/client/dist/browser';
 
 	export let visible: boolean;
 	export let severity: Severity;
 	export let timeReceived: string;
+	export let stackCount: number;
 	export let message: string;
-	export let data: string | null;
+	export let data: object | undefined;
+
+	$: formattedData = data
+		? Prism.highlight(
+				JSON.stringify(data, null, 2),
+				Prism.languages.javascript,
+				'javascript'
+		  )
+		: null;
 	let unfolded = false;
 </script>
 
@@ -16,9 +26,12 @@
 			<div>
 				<div>
 					<span class="mono">[{timeReceived}]</span>
+					{#if stackCount > 1}
+						<span>({stackCount}x)</span>
+					{/if}
 					<span>{message}</span>
 				</div>
-				{#if data}
+				{#if formattedData}
 					<img
 						src="/icons/arrow-right.svg"
 						alt="arrow"
@@ -28,10 +41,10 @@
 				{/if}
 			</div>
 		</div>
-		{#if data && unfolded}
+		{#if formattedData && unfolded}
 			<div class="bottom">
 				<div />
-				<pre><code class="mono">{@html data}</code></pre>
+				<pre><code class="mono">{@html formattedData}</code></pre>
 			</div>
 		{/if}
 	</div>

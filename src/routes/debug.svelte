@@ -5,7 +5,6 @@
 		Severity,
 		Verbosity,
 	} from '@code-game-project/client/dist/browser';
-	import Prism from 'prismjs';
 	import ErrorStack from '../components/error-stack.svelte';
 	import Header from '../components/header.svelte';
 	import Fullscreen from '../components/fullscreen.svelte';
@@ -30,8 +29,9 @@
 	let logs: {
 		severity: Severity;
 		timeReceived: string;
+		stackCount: number;
 		message: string;
-		data: string | null;
+		data: object | undefined;
 	}[] = [];
 	$: presentVisible = Object.entries(filter).some(
 		([k, v]) => v && present[k as Severity]
@@ -55,22 +55,25 @@
 	}
 
 	const addLog = (severity: Severity, message: string, data?: object) => {
+		const now = formatTime(new Date(Date.now()));
 		present[severity] = true;
-		logs = [
-			...logs,
-			{
-				severity: severity,
-				timeReceived: formatTime(new Date(Date.now())),
-				message,
-				data: data
-					? Prism.highlight(
-							JSON.stringify(data, null, 2),
-							Prism.languages.javascript,
-							'javascript'
-					  )
-					: null,
-			},
-		];
+		const last = logs[logs.length - 1];
+		if (
+			last &&
+			last.severity === severity &&
+			last.message === message &&
+			typeof last.data === typeof data
+		) {
+			last.timeReceived = now;
+			last.stackCount += 1;
+			last.data = data;
+			logs = logs;
+		} else {
+			logs = [
+				...logs,
+				{ severity, timeReceived: now, stackCount: 1, message, data },
+			];
+		}
 	};
 
 	onMount(async () => {
@@ -160,7 +163,7 @@
 						choose which severities are shown.
 					</p>
 				{:else if presentVisible}
-					{#each logs as log}
+					{#each logs as log, i (i)}
 						<DebugLog {...log} visible={filter[log.severity]} />
 					{/each}
 				{:else}
@@ -195,6 +198,12 @@
 				}
 			}
 		}
+	}
+
+	div#content {
+		overflow: auto;
+		scroll-snap-type: both mandatory;
+		scroll-snap-align: start;
 	}
 
 	div#content > p {
