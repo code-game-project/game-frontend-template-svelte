@@ -1,8 +1,17 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
 	export let columWidths: string;
+	export let pointer: boolean = false;
 </script>
 
-<div class="row" style="grid-template-columns: {columWidths};">
+<div
+	on:click={() => dispatch('click')}
+	class="row"
+	class:pointer
+	style="grid-template-columns: {columWidths};"
+>
 	<slot />
 </div>
 
@@ -10,4 +19,9 @@
 	div.row {
 		display: grid;
 	}
+
+	div.pointer {
+		cursor: pointer;
+	}
 </style>
+

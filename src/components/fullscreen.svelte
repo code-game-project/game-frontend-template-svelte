@@ -106,8 +106,7 @@
 
 	div#content {
 		height: 100%;
-		justify-self: stretch;
-		overflow-x: auto;
+		overflow: auto;
 	}
 
 	div#controls {
