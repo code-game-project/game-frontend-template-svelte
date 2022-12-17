@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Link } from 'svelte-routing';
 	import ErrorBar from './error-bar.svelte';
 	import ButtonAnchor from './button-anchor.svelte';
 	import { onMount } from 'svelte';
@@ -21,15 +22,9 @@
 	});
 </script>
 
-<noscript>
-	<ErrorBar
-		message="Some parts of this site require JavaScript to work. Please enable it to continue."
-	/>
-</noscript>
-
 <header>
 	<div class="super">
-		<a href="/"><h1>{name} v{version}</h1></a>
+		<Link to="/"><h1>{name} v{version}</h1></Link>
 		<nav>
 			{#if repo_url}
 				<ButtonAnchor href={repo_url}>Repository</ButtonAnchor>
