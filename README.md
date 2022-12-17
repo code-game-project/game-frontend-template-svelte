@@ -1,6 +1,6 @@
 # game-frontend-template-svelte
 
-A template for building game server frontends with SvelteKit and TypeScript.
+A template for building game server frontends with Svelte and TypeScript.
 
 ## Developing
 
@@ -24,8 +24,6 @@ npm run build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
 ## Canvas Framework Recommendations
 

@@ -1,15 +1,9 @@
-import adapter from '@sveltejs/adapter-auto';
-import preprocess from 'svelte-preprocess';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import preprocess from "svelte-preprocess";
 const { scss } = preprocess;
 
-/** @type {import('@sveltejs/kit').Config} */
-const config = {
-	// Consult https://github.com/sveltejs/svelte-preprocess
+export default {
+	// Consult https://svelte.dev/docs#compile-time-svelte-preprocess
 	// for more information about preprocessors
-	preprocess: preprocess({ preprocess: [scss()] }),
-	kit: {
-		adapter: adapter()
-	}
+	preprocess: [vitePreprocess(), scss],
 };
-
-export default config;

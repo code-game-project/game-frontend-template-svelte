@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { Link } from 'svelte-routing';
 	import Prism from 'prismjs';
+	import { onMount } from 'svelte';
+	import { getInfo, getGames, getGame } from '../api';
 	import Popup from '../components/popup.svelte';
 	import ErrorStack from '../components/error-stack.svelte';
 	import Header from '../components/header.svelte';
@@ -10,8 +13,6 @@
 	import Tooltip from '../components/tooltip.svelte';
 	import ButtonIcon from '../components/button-icon.svelte';
 	import Footer from '../components/footer.svelte';
-	import { onMount } from 'svelte';
-	import { getInfo, getGames, getGame } from '../api';
 
 	let errors: string[] = [];
 
@@ -126,8 +127,8 @@
 							<TableCell>{players}</TableCell>
 							<TableCell>
 								<div style="overflow-wrap: normal;">
-									<a href="/spectate?game_id={id}">Spectate</a>,&nbsp;
-									<a href="/debug?game_id={id}">Debug</a>,&nbsp;
+									<Link to="spectate?game_id={id}">Spectate</Link>,&nbsp;
+									<Link to="debug?game_id={id}">Debug</Link>,&nbsp;
 									<a href="#null" on:click|preventDefault={() => showPopup(id)}
 										>Details</a
 									>
