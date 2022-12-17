@@ -51,8 +51,6 @@
 {/if}
 
 <style lang="scss" scoped>
-	@import 'prismjs/themes/prism-tomorrow.css';
-
 	div.log {
 		border-bottom: 1px solid var(--background-light);
 		div.top,

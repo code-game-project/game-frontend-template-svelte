@@ -147,8 +147,6 @@
 <Footer />
 
 <style lang="scss" scoped>
-	@import 'prismjs/themes/prism-tomorrow.css';
-
 	h2 {
 		margin-top: var(--padding);
 	}
