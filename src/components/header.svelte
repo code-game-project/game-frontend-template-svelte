@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Link } from 'svelte-routing';
-	import ErrorBar from './error-bar.svelte';
 	import ButtonAnchor from './button-anchor.svelte';
 	import { onMount } from 'svelte';
 	import { getInfo } from '../api';
