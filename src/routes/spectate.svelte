@@ -50,6 +50,7 @@
 	};
 
 	let columWidths = '80% 20%';
+	// TODO: remove the example data
 	let finishers: { name: string; score: number }[] = [
 		{
 			name: 'Alice',

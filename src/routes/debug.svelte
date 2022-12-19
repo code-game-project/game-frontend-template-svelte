@@ -76,12 +76,6 @@
 		}
 	};
 
-	let count = 0;
-	setInterval(() => {
-		addLog(Severity.ERROR, 'testing ' + count);
-		count += 1;
-	}, 500);
-
 	onMount(async () => {
 		const gameId = new URLSearchParams(window.location.search).get('game_id');
 		if (gameId) {

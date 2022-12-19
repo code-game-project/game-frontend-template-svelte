@@ -1,8 +1,8 @@
 <script>
 	import { Router, Route } from 'svelte-routing';
-	import Index from './routes/Index.svelte';
-	import Spectate from './routes/Spectate.svelte';
-	import Debug from './routes/Debug.svelte';
+	import Index from './routes/index.svelte';
+	import Spectate from './routes/spectate.svelte';
+	import Debug from './routes/debug.svelte';
 
 	export let url = '';
 </script>
