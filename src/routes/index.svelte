@@ -10,8 +10,7 @@
 	import TableRow from '../components/table-row.svelte';
 	import TableEmpty from '../components/table-empty.svelte';
 	import TableCell from '../components/table-cell.svelte';
-	import Tooltip from '../components/tooltip.svelte';
-	import ButtonIcon from '../components/button-icon.svelte';
+	import CopyButton from '../components/copy-button.svelte';
 	import Footer from '../components/footer.svelte';
 
 	let errors: string[] = [];
@@ -40,8 +39,8 @@
 
 	let description: string = 'N/A';
 	let privateGames: number | 'N/A' = 'N/A';
-	let publicGames: { id: string; players: number; active: boolean }[];
-	let columWidths = '65% 10% 25%';
+	let publicGames: { id: string; players: number; }[];
+	const columnWidths = '65% 10% 25%';
 
 	onMount(async () => {
 		const info = await getInfo();
@@ -49,11 +48,7 @@
 		const games = await getGames();
 		if (games.ok && games.data) {
 			privateGames = games.data.private;
-			publicGames = games.data.public.map(({ id, players }) => ({
-				id,
-				players,
-				active: false,
-			}));
+			publicGames = games.data.public;
 		} else if (games.networkError) {
 			errors = [...errors, 'A network error occurred.'];
 		}
@@ -96,7 +91,7 @@
 		</p>
 		<Table minWidthPx={600}>
 			<div slot="head">
-				<TableRow {columWidths}>
+				<TableRow {columnWidths}>
 					<TableCell>Game ID</TableCell>
 					<TableCell>Players</TableCell>
 					<TableCell>Actions</TableCell>
@@ -104,25 +99,11 @@
 			</div>
 			<div slot="body">
 				{#if publicGames?.length > 0}
-					{#each publicGames as { id, players, active }}
-						<TableRow {columWidths}>
+					{#each publicGames as { id, players }}
+						<TableRow {columnWidths}>
 							<TableCell>
 								<span class="mono game-id">{id}</span>
-								<Tooltip tipText="Copied!" tipWidthPx={80} {active}>
-									<ButtonIcon
-										on:click={() => {
-											navigator.clipboard.writeText(id);
-											active = true;
-											setTimeout(() => (active = false), 2500);
-										}}
-									>
-										{#if active}
-											<img src="/icons/check.svg" alt="check" />
-										{:else}
-											<img src="/icons/copy.svg" alt="copy" />
-										{/if}
-									</ButtonIcon>
-								</Tooltip>
+								<CopyButton text={id} />
 							</TableCell>
 							<TableCell>{players}</TableCell>
 							<TableCell>

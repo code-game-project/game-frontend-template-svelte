@@ -13,13 +13,16 @@
 		const info = await getInfo();
 		if (info.ok && info.data) {
 			name = info.data.display_name || info.data.name;
-			document.title = name + ' - CodeGame';
 			if (info.data.version) version = info.data.version;
 			cgVersion = info.data.cg_version;
 			if (info.data.repository_url) repo_url = info.data.repository_url;
 		}
 	});
 </script>
+
+<svelte:head>
+	<title>{name} - CodeGame</title>
+</svelte:head>
 
 <header>
 	<div class="super">

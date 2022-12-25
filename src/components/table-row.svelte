@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
-	export let columWidths: string;
+	export let columnWidths: string;
 	export let pointer: boolean = false;
 </script>
 
@@ -10,7 +10,7 @@
 	on:click={() => dispatch('click')}
 	class="row"
 	class:pointer
-	style="grid-template-columns: {columWidths};"
+	style="grid-template-columns: {columnWidths};"
 >
 	<slot />
 </div>
