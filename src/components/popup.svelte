@@ -11,7 +11,7 @@
 			<div class="popup" on:click|stopPropagation>
 				<div class="header">
 					<h2>{title}</h2>
-					<ButtonIcon on:click={() => (visible = false)}
+					<ButtonIcon sizePx="24" on:click={() => (visible = false)}
 						><img src="/icons/x.svg" alt="X" /></ButtonIcon
 					>
 				</div>

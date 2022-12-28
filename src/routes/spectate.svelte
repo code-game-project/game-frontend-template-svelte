@@ -49,7 +49,7 @@
 		}
 	};
 
-	let columWidths = '80% 20%';
+	let columnWidths = '80% 20%';
 	// TODO: remove the example data
 	let finishers: { name: string; score: number }[] = [
 		{
@@ -103,7 +103,8 @@
 		<p>
 			This page features an example score board as well as a canvas with a blue
 			background color and a green square on it. These are just examples of
-			elements you can use to create a way to view what's happening in your game.
+			elements you can use to create a way to view what's happening in your
+			game.
 		</p>
 	</section>
 	<section bind:clientWidth={canvasContainerWidth}>
@@ -114,7 +115,7 @@
 	<section>
 		<Table minWidthPx={300}>
 			<div slot="head">
-				<TableRow {columWidths}>
+				<TableRow {columnWidths}>
 					<TableCell>Name</TableCell>
 					<TableCell>Score</TableCell>
 				</TableRow>
@@ -122,7 +123,7 @@
 			<div slot="body">
 				{#if finishers.length > 0}
 					{#each finishers as { name, score }}
-						<TableRow {columWidths}>
+						<TableRow {columnWidths}>
 							<TableCell>{name}</TableCell>
 							<TableCell>{score}</TableCell>
 						</TableRow>

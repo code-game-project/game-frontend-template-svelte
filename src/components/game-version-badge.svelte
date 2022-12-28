@@ -1,0 +1,54 @@
+<script lang="ts">
+	export let cg_version: string;
+</script>
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="106"
+	height="20"
+	role="img"
+	aria-label="CodeGame: v{cg_version}"
+	><title>CodeGame: v{cg_version}</title><linearGradient id="s" x2="0" y2="100%"
+		><stop offset="0" stop-color="#bbb" stop-opacity=".1" /><stop
+			offset="1"
+			stop-opacity=".1"
+		/></linearGradient
+	><clipPath id="r"
+		><rect width="106" height="20" rx="3" fill="#fff" /></clipPath
+	><g clip-path="url(#r)"
+		><rect width="71" height="20" fill="#555" /><rect
+			x="71"
+			width="35"
+			height="20"
+			fill="#fe7d37"
+		/><rect width="106" height="20" fill="url(#s)" /></g
+	><g
+		fill="#fff"
+		text-anchor="middle"
+		font-family="Verdana,Geneva,DejaVu Sans,sans-serif"
+		text-rendering="geometricPrecision"
+		font-size="110"
+		><text
+			aria-hidden="true"
+			x="365"
+			y="150"
+			fill="#010101"
+			fill-opacity=".3"
+			transform="scale(.1)"
+			textLength="610">CodeGame</text
+		><text x="365" y="140" transform="scale(.1)" fill="#fff" textLength="610"
+			>CodeGame</text
+		><text
+			aria-hidden="true"
+			x="875"
+			y="150"
+			fill="#010101"
+			fill-opacity=".3"
+			transform="scale(.1)"
+			textLength="250">v{cg_version}</text
+		><text x="875" y="140" transform="scale(.1)" fill="#fff" textLength="250"
+			>v{cg_version}</text
+		></g
+	></svg
+>

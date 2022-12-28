@@ -103,7 +103,7 @@
 						<TableRow {columnWidths}>
 							<TableCell>
 								<span class="mono game-id">{id}</span>
-								<CopyButton text={id} />
+								<CopyButton sizePx="24" text={id} />
 							</TableCell>
 							<TableCell>{players}</TableCell>
 							<TableCell>

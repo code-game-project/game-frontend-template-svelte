@@ -17,6 +17,9 @@
 <style lang="scss" scoped>
 	.tooltip {
 		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.tooltip .tooltiptext {

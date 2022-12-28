@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
+
+	export let sizePx: string;
 </script>
 
-<button on:click={() => dispatch('click')}>
+<button
+	style="width: {sizePx}px; height: {sizePx}px;"
+	on:click={() => dispatch('click')}
+>
 	<slot>Click me!</slot>
 </button>
 
