@@ -1,17 +1,20 @@
 <script lang="ts">
-	import config from '../config';
-	import { createSocket } from '@code-game-project/client/dist/browser';
-	import ErrorStack from '../components/error-stack.svelte';
-	import Header from '../components/header.svelte';
-	import Fullscreen from '../components/fullscreen.svelte';
-	import Table from '../components/table.svelte';
-	import TableRow from '../components/table-row.svelte';
-	import TableEmpty from '../components/table-empty.svelte';
-	import TableCell from '../components/table-cell.svelte';
-	import Footer from '../components/footer.svelte';
 	import { onMount } from 'svelte';
+	import { link } from 'svelte-routing';
+	import { createSocket } from '@code-game-project/client';
+	import config from '../config';
+	import { handleScope } from '../scoping';
+	import Fullscreen from '../components/generic/fullscreen.svelte';
+	import Table from '../components/generic/table.svelte';
+	import TableRow from '../components/generic/table-row.svelte';
+	import TableEmpty from '../components/generic/table-empty.svelte';
+	import TableCell from '../components/generic/table-cell.svelte';
+	import { addError } from '../stores';
 
-	let errors: string[] = [];
+	let scope: string;
+	let gameId: string;
+	let playerId: string;
+	let playerSecret: string;
 	let canvas: HTMLCanvasElement;
 	let ctx: CanvasRenderingContext2D | null;
 	let isFullscreen: boolean;
@@ -22,7 +25,7 @@
 	const resize = () => {
 		width = isFullscreen ? window.screen.availWidth : canvasContainerWidth;
 		height = isFullscreen ? window.screen.availHeight : (width / 16) * 9;
-		// give the canvas time to resize, which has the side effect of clearing before redrawing
+		// let the canvas resize first, which has the side effect of clearing, before redrawing
 		setTimeout(draw, 0);
 	};
 
@@ -75,70 +78,75 @@
 		ctx = canvas.getContext('2d');
 		resize();
 		setInterval(draw, 1000 / 30);
-		const gameId = new URLSearchParams(window.location.search).get('game_id');
-		if (gameId) {
-			try {
-				const socket = createSocket(config.gameURL);
-				// TODO: register event listeners here
-				await socket.spectate(gameId);
-				// TODO: work with the socket here
-			} catch (error) {
-				errors = [
-					...errors,
-					'Unable to connect to game. You likely have the wrong game ID.',
-				];
-			}
-		} else {
-			errors = [...errors, 'Missing `game_id=` query parameter in URL.'];
-		}
+		const socket = createSocket(config.gameURL);
+		({ scope, gameId, playerId, playerSecret } = await handleScope(
+			window.location.search,
+			null,
+			async (gameId) => await socket.spectate(gameId),
+			async (gameId, playerId, playerSecret) =>
+				await socket.connect(gameId, playerId, playerSecret),
+			addError
+		));
 	});
 </script>
 
-<ErrorStack {errors} />
-
-<Header />
-
-<main>
-	<section>
+{#if scope === 'game' || scope === 'player'}
+	<div>
 		<p>
-			This page features an example score board as well as a canvas with a blue
-			background color and a green square on it. These are just examples of
-			elements you can use to create a way to view what's happening in your
-			game.
+			The scope is set to "{scope}". Click
+			<a
+				href={`/debug?game_id=${gameId}` +
+					(scope === 'player'
+						? `&player_id=${playerId}&player_secret=${playerSecret}`
+						: '')}
+				use:link>here</a
+			>
+			to go to the {scope} debug console.
 		</p>
-	</section>
-	<section bind:clientWidth={canvasContainerWidth}>
-		<Fullscreen bind:isFullscreen on:fullscreenChange={resize}>
-			<canvas slot="content" bind:this={canvas} {width} {height} />
-		</Fullscreen>
-	</section>
-	<section>
-		<Table minWidthPx={300}>
-			<div slot="head">
-				<TableRow {columnWidths}>
-					<TableCell>Name</TableCell>
-					<TableCell>Score</TableCell>
-				</TableRow>
-			</div>
-			<div slot="body">
-				{#if finishers.length > 0}
-					{#each finishers as { name, score }}
-						<TableRow {columnWidths}>
-							<TableCell>{name}</TableCell>
-							<TableCell>{score}</TableCell>
-						</TableRow>
-					{/each}
-				{:else}
-					<TableEmpty>No one has finished yet.</TableEmpty>
-				{/if}
-			</div>
-		</Table>
-	</section>
-</main>
-
-<Footer />
+	</div>
+{/if}
+<section>
+	<p>
+		This page features an example score board as well as a canvas with a blue
+		background color and a green square on it. These are just examples of
+		elements you can use to create a way to view what's happening in your game.
+	</p>
+</section>
+<section id="view" bind:clientWidth={canvasContainerWidth}>
+	<Fullscreen bind:isFullscreen on:fullscreenChange={resize}>
+		<canvas slot="content" bind:this={canvas} {width} {height} />
+	</Fullscreen>
+</section>
+<section>
+	<Table minWidthPx={300}>
+		<div slot="head">
+			<TableRow {columnWidths}>
+				<TableCell>Name</TableCell>
+				<TableCell>Score</TableCell>
+			</TableRow>
+		</div>
+		<div slot="body">
+			{#if finishers.length > 0}
+				{#each finishers as { name, score }}
+					<TableRow {columnWidths}>
+						<TableCell>{name}</TableCell>
+						<TableCell>{score}</TableCell>
+					</TableRow>
+				{/each}
+			{:else}
+				<TableEmpty>No one has finished yet.</TableEmpty>
+			{/if}
+		</div>
+	</Table>
+</section>
 
 <style lang="scss" scoped>
+	section#view {
+		border: 1px solid var(--background-light);
+		border-radius: var(--radius);
+		overflow: hidden;
+	}
+
 	canvas {
 		width: 100%;
 		background-color: hsl(208, 100%, 50%);

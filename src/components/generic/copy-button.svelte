@@ -3,14 +3,12 @@
 	import ButtonIcon from './button-icon.svelte';
 
 	export let text: string | undefined;
-	export let sizePx: string;
 	let textInternal = text || 'N/A';
 	let active = false;
 </script>
 
 <Tooltip tipText="Copied!" tipWidthPx={80} {active}>
 	<ButtonIcon
-		{sizePx}
 		on:click={() => {
 			navigator.clipboard.writeText(textInternal);
 			active = true;

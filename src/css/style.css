@@ -6,6 +6,7 @@
   --text: hsl(0, 0%, 96%);
   --radius: 6px;
   --padding: 12px;
+  --half-padding: 6px;
   --transition-time: 0.3s;
 }
 
@@ -26,7 +27,7 @@ body {
 header,
 main,
 footer {
-  max-width: 1000px;
+  max-width: 1300px;
   margin: var(--padding) auto var(--padding);
 }
 

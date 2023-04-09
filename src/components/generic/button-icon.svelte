@@ -2,13 +2,10 @@
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
-	export let sizePx: string;
+	export let title: string | null = null;
 </script>
 
-<button
-	style="width: {sizePx}px; height: {sizePx}px;"
-	on:click={() => dispatch('click')}
->
+<button title={title || ''} on:click|stopPropagation={() => dispatch('click')}>
 	<slot>Click me!</slot>
 </button>
 

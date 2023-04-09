@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { link } from "svelte-routing";
+
 	export let href: string;
 </script>
 
-<a {href}>
+<a {href} use:link>
 	<slot>Click me!</slot>
 </a>
 

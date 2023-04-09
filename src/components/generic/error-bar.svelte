@@ -9,7 +9,7 @@
 <div class="error">
 	<div class="error-container">
 		<div>{message}</div>
-		<ButtonIcon sizePx="24" on:click={() => dispatch('dismiss')}
+		<ButtonIcon on:click={() => dispatch('dismiss')}
 			><img src="/icons/trash.svg" alt="dismiss" /></ButtonIcon
 		>
 	</div>

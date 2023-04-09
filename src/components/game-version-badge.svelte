@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let cg_version: string;
+	import { cgVersion } from "../stores";
 </script>
 
 <svg
@@ -8,8 +8,8 @@
 	width="106"
 	height="20"
 	role="img"
-	aria-label="CodeGame: v{cg_version}"
-	><title>CodeGame: v{cg_version}</title><linearGradient id="s" x2="0" y2="100%"
+	aria-label="CodeGame: v{$cgVersion}"
+	><title>CodeGame: v{$cgVersion}</title><linearGradient id="s" x2="0" y2="100%"
 		><stop offset="0" stop-color="#bbb" stop-opacity=".1" /><stop
 			offset="1"
 			stop-opacity=".1"
@@ -46,9 +46,9 @@
 			fill="#010101"
 			fill-opacity=".3"
 			transform="scale(.1)"
-			textLength="250">v{cg_version}</text
+			textLength="250">v{$cgVersion}</text
 		><text x="875" y="140" transform="scale(.1)" fill="#fff" textLength="250"
-			>v{cg_version}</text
+			>v{$cgVersion}</text
 		></g
 	></svg
 >

@@ -1,41 +1,31 @@
 <script lang="ts">
-	import { Link } from 'svelte-routing';
-	import ButtonAnchor from './button-anchor.svelte';
+	import { link } from 'svelte-routing';
+	import { gameName, gameVersion, repoUrl } from '../stores';
+	import ButtonAnchor from './generic/button-anchor.svelte';
 	import GameVersionBadge from './game-version-badge.svelte';
-	import { onMount } from 'svelte';
-	import { getInfo } from '../api';
-
-	let name = 'N/A';
-	let version = 'N/A';
-	let cgVersion = 'N/A';
-	let repo_url = '';
-
-	onMount(async () => {
-		const info = await getInfo();
-		if (info.ok && info.data) {
-			name = info.data.display_name || info.data.name;
-			if (info.data.version) version = info.data.version;
-			cgVersion = info.data.cg_version;
-			if (info.data.repository_url) repo_url = info.data.repository_url;
-		}
-	});
 </script>
 
 <svelte:head>
-	<title>{name} - CodeGame</title>
+	<title>{$gameName} - CodeGame</title>
 </svelte:head>
 
 <header>
 	<div class="super">
-		<Link to="/"><h1>{name} v{version}</h1></Link>
+		<a href="/" use:link>
+			<h1>
+				{$gameName}
+				{#if $gameVersion}v{$gameVersion}{/if}
+			</h1>
+		</a>
 		<nav>
-			{#if repo_url}
-				<ButtonAnchor href={repo_url}>Repository</ButtonAnchor>
+			<ButtonAnchor href="/debug?scope=server">Console</ButtonAnchor>
+			{#if $repoUrl}
+				<ButtonAnchor href={$repoUrl}>Repository</ButtonAnchor>
 			{/if}
 		</nav>
 	</div>
 	<div class="sub">
-		<GameVersionBadge cg_version={cgVersion} />
+		<GameVersionBadge />
 	</div>
 </header>
 

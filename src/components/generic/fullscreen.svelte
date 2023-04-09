@@ -80,11 +80,11 @@
 	{#if fullscreenSupport}
 		<div id="controls">
 			{#if isFullscreen}
-				<ButtonIcon sizePx="24" on:click={fsToggle}
+				<ButtonIcon on:click={fsToggle}
 					><img src="/icons/minimize.svg" alt="Exit full screen" /></ButtonIcon
 				>
 			{:else}
-				<ButtonIcon sizePx="24"
+				<ButtonIcon
 					><img
 						on:click={fsToggle}
 						src="/icons/maximize.svg"
