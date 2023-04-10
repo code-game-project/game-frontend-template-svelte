@@ -120,43 +120,56 @@
 			<h3>Debug Console</h3>
 			<div id="filters">
 				<div>
-					<input type="checkbox" bind:checked={filter['error']} />
-					<ButtonIcon on:click={() => (filter['error'] = !filter['error'])}>
-						<img
-							src="/icons/error.svg"
-							alt="Error"
-							title="Add errors to filter."
-						/>
+					<input type="checkbox" bind:checked={filter[Severity.ERROR]} />
+					<ButtonIcon
+						title="{filter[Severity.ERROR] ? 'Remove' : 'Add'} errors {filter[
+							Severity.ERROR
+						]
+							? 'from'
+							: 'to'} filter."
+						on:click={() => (filter[Severity.ERROR] = !filter[Severity.ERROR])}
+					>
+						<img src="/icons/error.svg" alt="Error" />
 					</ButtonIcon>
 				</div>
 				<div>
-					<input type="checkbox" bind:checked={filter['warning']} />
-					<ButtonIcon on:click={() => (filter['warning'] = !filter['warning'])}>
-						<img
-							src="/icons/warning.svg"
-							alt="warning"
-							title="Add warnings to filter."
-						/>
+					<input type="checkbox" bind:checked={filter[Severity.WARNING]} />
+					<ButtonIcon
+						title="{filter[Severity.WARNING]
+							? 'Remove'
+							: 'Add'} warnings {filter[Severity.WARNING]
+							? 'from'
+							: 'to'} filter."
+						on:click={() =>
+							(filter[Severity.WARNING] = !filter[Severity.WARNING])}
+					>
+						<img src="/icons/warning.svg" alt="warning" />
 					</ButtonIcon>
 				</div>
 				<div>
-					<input type="checkbox" bind:checked={filter['info']} />
-					<ButtonIcon on:click={() => (filter['info'] = !filter['info'])}>
-						<img
-							src="/icons/info.svg"
-							alt="info"
-							title="Add infos to filter."
-						/>
+					<input type="checkbox" bind:checked={filter[Severity.INFO]} />
+					<ButtonIcon
+						title="{filter[Severity.INFO] ? 'Remove' : 'Add'} infos {filter[
+							Severity.INFO
+						]
+							? 'from'
+							: 'to'} filter."
+						on:click={() => (filter[Severity.INFO] = !filter[Severity.INFO])}
+					>
+						<img src="/icons/info.svg" alt="info" />
 					</ButtonIcon>
 				</div>
 				<div>
-					<input type="checkbox" bind:checked={filter['trace']} />
-					<ButtonIcon on:click={() => (filter['trace'] = !filter['trace'])}>
-						<img
-							src="/icons/trace.svg"
-							alt="trace"
-							title="Add traces to filter."
-						/>
+					<input type="checkbox" bind:checked={filter[Severity.TRACE]} />
+					<ButtonIcon
+						title="{filter[Severity.TRACE] ? 'Remove' : 'Add'} traces {filter[
+							Severity.TRACE
+						]
+							? 'from'
+							: 'to'} filter."
+						on:click={() => (filter[Severity.TRACE] = !filter[Severity.TRACE])}
+					>
+						<img src="/icons/trace.svg" alt="trace" />
 					</ButtonIcon>
 				</div>
 			</div>
