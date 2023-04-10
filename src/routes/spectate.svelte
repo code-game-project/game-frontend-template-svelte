@@ -95,7 +95,7 @@
 		<p>
 			The scope is set to "{scope}". Click
 			<a
-				href={`/debug?game_id=${gameId}` +
+				href={`/debug?scope=${scope}&game_id=${gameId}` +
 					(scope === 'player'
 						? `&player_id=${playerId}&player_secret=${playerSecret}`
 						: '')}
