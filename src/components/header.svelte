@@ -18,7 +18,7 @@
 			</h1>
 		</a>
 		<nav>
-			<ButtonAnchor href="/debug?scope=server">Console</ButtonAnchor>
+			<ButtonAnchor href="/debug">Console</ButtonAnchor>
 			{#if $repoUrl}
 				<ButtonAnchor href={$repoUrl}>Repository</ButtonAnchor>
 			{/if}

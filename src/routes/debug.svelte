@@ -90,14 +90,15 @@
 		return socket;
 	};
 
-	onMount(() => {
-		handleScope(
-			window.location.search,
-			async () => await setupDebugSocket().debugServer(),
-			async (gameId) => await setupDebugSocket().debugGame(gameId),
-			async (gameId, playerId, playerSecret) =>
-				await setupDebugSocket().debugPlayer(gameId, playerId, playerSecret),
-			addError
+	onMount(async () => {
+		console.log(
+			await handleScope(
+				window.location.search,
+				async () => await setupDebugSocket().debugServer(),
+				async (gameId) => await setupDebugSocket().debugGame(gameId),
+				async (gameId, playerId, playerSecret) =>
+					await setupDebugSocket().debugPlayer(gameId, playerId, playerSecret)
+			)
 		);
 	});
 </script>

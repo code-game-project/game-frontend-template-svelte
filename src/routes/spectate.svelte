@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { link } from 'svelte-routing';
 	import { createSocket } from '@code-game-project/client';
 	import config from '../config';
 	import { handleScope } from '../scoping';
@@ -9,12 +8,7 @@
 	import TableRow from '../components/generic/table-row.svelte';
 	import TableEmpty from '../components/generic/table-empty.svelte';
 	import TableCell from '../components/generic/table-cell.svelte';
-	import { addError } from '../stores';
 
-	let scope: string;
-	let gameId: string;
-	let playerId: string;
-	let playerSecret: string;
 	let canvas: HTMLCanvasElement;
 	let ctx: CanvasRenderingContext2D | null;
 	let isFullscreen: boolean;
@@ -79,32 +73,16 @@
 		resize();
 		setInterval(draw, 1000 / 30);
 		const socket = createSocket(config.gameURL);
-		({ scope, gameId, playerId, playerSecret } = await handleScope(
+		await handleScope(
 			window.location.search,
 			null,
 			async (gameId) => await socket.spectate(gameId),
 			async (gameId, playerId, playerSecret) =>
-				await socket.connect(gameId, playerId, playerSecret),
-			addError
-		));
+				await socket.connect(gameId, playerId, playerSecret)
+		);
 	});
 </script>
 
-{#if scope === 'game' || scope === 'player'}
-	<div>
-		<p>
-			The scope is set to "{scope}". Click
-			<a
-				href={`/debug?scope=${scope}&game_id=${gameId}` +
-					(scope === 'player'
-						? `&player_id=${playerId}&player_secret=${playerSecret}`
-						: '')}
-				use:link>here</a
-			>
-			to go to the {scope} debug console.
-		</p>
-	</div>
-{/if}
 <section>
 	<p>
 		This page features an example score board as well as a canvas with a blue
