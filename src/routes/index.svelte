@@ -8,6 +8,7 @@
 	import TableEmpty from '../components/generic/table-empty.svelte';
 	import TableCell from '../components/generic/table-cell.svelte';
 	import GameRow from '../components/game-row.svelte';
+	import { scopeStore } from '../scoping';
 
 	let privateGames: number | 'N/A' = 'N/A';
 	let publicGames: { id: string; players: number }[];
@@ -22,6 +23,8 @@
 			addError('A network error occurred.');
 		}
 	};
+
+	scopeStore.set('server');
 
 	onMount(refreshGames);
 </script>

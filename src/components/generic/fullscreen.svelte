@@ -3,7 +3,7 @@
 	import ButtonIcon from './button-icon.svelte';
 	const dispatch = createEventDispatcher();
 
-	export let maxHeightPx: number | null = null;
+	export let height: number;
 
 	const noop = () => {};
 	export let isFullscreen = false;
@@ -67,9 +67,7 @@
 	class="fs"
 	class:isFullscreen
 	bind:this={fsContainer}
-	style={isFullscreen || maxHeightPx === null
-		? ''
-		: `max-height: ${maxHeightPx}px;`}
+	style={`height: ${height}px;`}
 >
 	<div id="header">
 		<slot name="header" />
@@ -84,13 +82,9 @@
 					><img src="/icons/minimize.svg" alt="Exit full screen" /></ButtonIcon
 				>
 			{:else}
-				<ButtonIcon
-					><img
-						on:click={fsToggle}
-						src="/icons/maximize.svg"
-						alt="Show in full screen"
-					/></ButtonIcon
-				>
+				<ButtonIcon on:click={fsToggle}
+					><img src="/icons/maximize.svg" alt="Show in full screen" />
+				</ButtonIcon>
 			{/if}
 		</div>
 	{/if}
@@ -104,8 +98,13 @@
 		background-color: var(--background);
 	}
 
+	div#header,
+	div#controls {
+		flex-shrink: 0;
+	}
+
 	div#content {
-		height: 100%;
+		flex-grow: 1;
 		overflow: auto;
 	}
 

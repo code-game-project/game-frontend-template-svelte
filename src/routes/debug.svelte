@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
 	import {
 		createDebugSocket,
 		Severity,
 		Verbosity,
 	} from '@code-game-project/client/dist/browser';
 	import config from '../config';
-	import { addError } from '../stores';
 	import { handleScope } from '../scoping';
 	import Fullscreen from '../components/generic/fullscreen.svelte';
 	import DebugLog from '../components/debug-log.svelte';
+	import ButtonIcon from '../components/generic/button-icon.svelte';
 
 	let present: { [K in Severity]: boolean } = {
 		error: false,
@@ -90,63 +90,78 @@
 		return socket;
 	};
 
-	onMount(async () => {
-		console.log(
-			await handleScope(
-				window.location.search,
-				async () => await setupDebugSocket().debugServer(),
-				async (gameId) => await setupDebugSocket().debugGame(gameId),
-				async (gameId, playerId, playerSecret) =>
-					await setupDebugSocket().debugPlayer(gameId, playerId, playerSecret)
-			)
+	onMount(() => {
+		handleScope(
+			window.location.search,
+			async () => await setupDebugSocket().debugServer(),
+			async (gameId) => await setupDebugSocket().debugGame(gameId),
+			async (gameId, playerId, playerSecret) =>
+				await setupDebugSocket().debugPlayer(gameId, playerId, playerSecret)
 		);
 	});
+
+	let contentDiv: HTMLDivElement;
+	let autoscroll: boolean = false;
+	beforeUpdate(() => {
+		autoscroll =
+			contentDiv &&
+			contentDiv.offsetHeight + contentDiv.scrollTop >
+				contentDiv.scrollHeight - 20;
+	});
+	afterUpdate(() => {
+		if (autoscroll) scrollToBottom();
+	});
+	const scrollToBottom = () => contentDiv.scrollTo(0, contentDiv.scrollHeight);
 </script>
 
 <section id="logs">
-	<Fullscreen maxHeightPx={700}>
+	<Fullscreen height={700} on:fullscreenChange={scrollToBottom}>
 		<div id="header" slot="header">
 			<h3>Debug Console</h3>
 			<div id="filters">
 				<div>
 					<input type="checkbox" bind:checked={filter['error']} />
-					<img
-						src="/icons/error.svg"
-						alt="Error"
-						title="Add errors to filter."
-						on:click={() => (filter['error'] = !filter['error'])}
-					/>
+					<ButtonIcon on:click={() => (filter['error'] = !filter['error'])}>
+						<img
+							src="/icons/error.svg"
+							alt="Error"
+							title="Add errors to filter."
+						/>
+					</ButtonIcon>
 				</div>
 				<div>
 					<input type="checkbox" bind:checked={filter['warning']} />
-					<img
-						src="/icons/warning.svg"
-						alt="warning"
-						title="Add warnings to filter."
-						on:click={() => (filter['warning'] = !filter['warning'])}
-					/>
+					<ButtonIcon on:click={() => (filter['warning'] = !filter['warning'])}>
+						<img
+							src="/icons/warning.svg"
+							alt="warning"
+							title="Add warnings to filter."
+						/>
+					</ButtonIcon>
 				</div>
 				<div>
 					<input type="checkbox" bind:checked={filter['info']} />
-					<img
-						src="/icons/info.svg"
-						alt="info"
-						title="Add infos to filter."
-						on:click={() => (filter['info'] = !filter['info'])}
-					/>
+					<ButtonIcon on:click={() => (filter['info'] = !filter['info'])}>
+						<img
+							src="/icons/info.svg"
+							alt="info"
+							title="Add infos to filter."
+						/>
+					</ButtonIcon>
 				</div>
 				<div>
 					<input type="checkbox" bind:checked={filter['trace']} />
-					<img
-						src="/icons/trace.svg"
-						alt="trace"
-						title="Add traces to filter."
-						on:click={() => (filter['trace'] = !filter['trace'])}
-					/>
+					<ButtonIcon on:click={() => (filter['trace'] = !filter['trace'])}>
+						<img
+							src="/icons/trace.svg"
+							alt="trace"
+							title="Add traces to filter."
+						/>
+					</ButtonIcon>
 				</div>
 			</div>
 		</div>
-		<div id="content" slot="content">
+		<div id="content" slot="content" bind:this={contentDiv}>
 			{#if logs.length === 0}
 				<p>No debug logs have arrived here yet.</p>
 			{:else if allHidden}
@@ -185,22 +200,18 @@
 				display: flex;
 				align-items: center;
 				img {
-					margin-left: calc(var(--padding) / 2);
+					margin-left: var(--half-padding);
 				}
 			}
 		}
 	}
 
 	div#content {
-		overflow-y: auto;
-		overscroll-behavior-y: contain;
-		scroll-snap-type: y mandatory;
+		overflow-y: scroll;
+		height: 100%;
 		> p {
 			padding: var(--padding);
 			text-align: center;
-		}
-		> div:last-child {
-			scroll-snap-align: start;
 		}
 	}
 </style>

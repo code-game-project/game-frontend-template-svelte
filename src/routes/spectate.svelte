@@ -91,7 +91,7 @@
 	</p>
 </section>
 <section id="view" bind:clientWidth={canvasContainerWidth}>
-	<Fullscreen bind:isFullscreen on:fullscreenChange={resize}>
+	<Fullscreen height={700} bind:isFullscreen on:fullscreenChange={resize}>
 		<canvas slot="content" bind:this={canvas} {width} {height} />
 	</Fullscreen>
 </section>
