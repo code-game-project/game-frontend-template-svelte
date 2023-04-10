@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import {} from 'svelte/animate';
 	import { api } from '@code-game-project/client';
 	import config from '../config';
 	import { gameDescription, addError } from '../stores';
+	import ButtonIcon from '../components/generic/button-icon.svelte';
 	import Table from '../components/generic/table.svelte';
 	import TableRow from '../components/generic/table-row.svelte';
 	import TableEmpty from '../components/generic/table-empty.svelte';
@@ -24,6 +26,14 @@
 		}
 	};
 
+	let rotating = false;
+	const rotate = () => {
+		if (!rotating) {
+			rotating = true;
+			setTimeout(() => (rotating = false), 1000);
+		}
+	};
+
 	scopeStore.set('server');
 
 	onMount(refreshGames);
@@ -35,7 +45,21 @@
 		<p>{$gameDescription}</p>
 	</section>
 	<section>
-		<h2>Games</h2>
+		<h2>
+			<span>Games</span>
+			<ButtonIcon
+				title={'refresh'}
+				on:click={() => {
+					refreshGames();
+					rotate();
+				}}
+				><img
+					src="/icons/refresh.svg"
+					alt="refresh"
+					class:rotating
+				/></ButtonIcon
+			>
+		</h2>
 		<p>Private games: {privateGames}</p>
 		<p>
 			Public games: {typeof publicGames === 'undefined'
@@ -66,5 +90,16 @@
 <style lang="scss" scoped>
 	h2 {
 		margin-top: var(--padding);
+		display: flex;
+		gap: var(--half-padding);
+		img {
+			transform: rotate(0deg);
+			transition: all 0s;
+		}
+		img.rotating {
+			transform: rotate(360deg);
+			transition: all 1s;
+			animation-timing-function: cubic-bezier(1, 0, 0.5, 1);
+		}
 	}
 </style>
