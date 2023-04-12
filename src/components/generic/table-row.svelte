@@ -2,14 +2,17 @@
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
+	export let mobileMode: boolean;
 	export let columnWidths: string;
-	export let pointer: boolean = false;
+	export let clickable: boolean = false;
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
 	on:click={() => dispatch('click')}
 	class="row"
-	class:pointer
+	class:clickable
+	class:mobileMode
 	style="grid-template-columns: {columnWidths};"
 >
 	<slot />
@@ -20,8 +23,12 @@
 		display: grid;
 	}
 
-	div.pointer {
+	div.mobileMode {
+		display: flex;
+		flex-direction: column;
+	}
+
+	div.clickable {
 		cursor: pointer;
 	}
 </style>
-

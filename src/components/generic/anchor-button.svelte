@@ -3,14 +3,14 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<button on:click={() => dispatch('click')}>
+<button on:click={(event) => dispatch('click', { ctrl: event.ctrlKey })}>
 	<slot />
 </button>
 
 <style lang="scss">
-  button {
-    all: unset;
-    color: var(--primary-light);
-    cursor: pointer;
-  }
+	button {
+		all: unset;
+		color: var(--primary-light);
+		cursor: pointer;
+	}
 </style>

@@ -96,7 +96,7 @@
 	</Fullscreen>
 </section>
 <section>
-	<Table minWidthPx={300}>
+	<Table mobileModeWidthPx={300}>
 		<div slot="head">
 			<TableRow {columnWidths}>
 				<TableCell>Name</TableCell>

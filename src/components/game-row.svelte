@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { link, navigate } from 'svelte-routing';
+	import { navigate } from 'svelte-routing';
 	import TableRow from './generic/table-row.svelte';
 	import TableCell from './generic/table-cell.svelte';
 	import CopyButton from './generic/copy-button.svelte';
@@ -8,53 +8,42 @@
 	import AnchorButton from './generic/anchor-button.svelte';
 	import { gameIdStore, scopeStore } from '../scoping';
 
+	export let mobileMode: boolean;
 	export let columnWidths: string;
+
 	export let id: string;
 	export let players: number;
 
 	let popupVisible = false;
 
-	let holdingCtrl = false;
-	const handleKeydown = (
-		event: KeyboardEvent & {
-			currentTarget: EventTarget & Window;
-		}
-	) => {
-		if (event.key == 'Control' || event.key == 'Meta') holdingCtrl = true;
-	};
-	const handleKeyup = (
-		event: KeyboardEvent & {
-			currentTarget: EventTarget & Window;
-		}
-	) => {
-		if (event.key == 'Control' || event.key == 'Meta') holdingCtrl = false;
-	};
-
-	const spectate = () => {
+	const spectate = (details: any) => {
 		scopeStore.set('game');
 		gameIdStore.set(id);
-		if (holdingCtrl)
+		if (details.ctrl)
 			window.open(window.location.origin + '/spectate', '_blank');
 		else navigate('spectate');
 	};
-	const debug = () => {
+	const debug = (details: any) => {
 		scopeStore.set('game');
 		gameIdStore.set(id);
-		if (holdingCtrl) window.open(window.location.origin + '/debug', '_blank');
+		if (details.ctrl) window.open(window.location.origin + '/debug', '_blank');
 		else navigate('debug');
 	};
 </script>
 
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
-
-<TableRow {columnWidths}>
+<TableRow {columnWidths} {mobileMode}>
 	<TableCell>
 		<span class="mono game-id">{id}</span>
 		<CopyButton text={id} />
 	</TableCell>
-	<TableCell>{players}</TableCell>
 	<TableCell>
-		<div style="overflow-wrap: normal;">
+		<span>
+			{#if mobileMode}Players:{/if}
+			{players}
+		</span>
+	</TableCell>
+	<TableCell center={mobileMode}>
+		<div>
 			<AnchorButton on:click={spectate}>Spectate</AnchorButton>,&nbsp;
 			<AnchorButton on:click={debug}>Debug</AnchorButton>,&nbsp;
 			<AnchorButton on:click={() => (popupVisible = true)}>
@@ -73,5 +62,6 @@
 <style lang="scss" scoped>
 	span.game-id {
 		padding-right: var(--padding);
+		text-overflow: ellipsis;
 	}
 </style>

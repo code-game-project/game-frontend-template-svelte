@@ -25,7 +25,6 @@
 			addError('A network error occurred.');
 		}
 	};
-
 	let rotating = false;
 	const rotate = () => {
 		if (!rotating) {
@@ -35,57 +34,49 @@
 	};
 
 	scopeStore.set('server');
-
 	onMount(refreshGames);
+	let mobileMode: boolean;
 </script>
 
-<main>
-	<section>
-		<h2>About</h2>
-		<p>{$gameDescription}</p>
-	</section>
-	<section>
-		<h2>
-			<span>Games</span>
-			<ButtonIcon
-				title={'refresh'}
-				on:click={() => {
-					refreshGames();
-					rotate();
-				}}
-				><img
-					src="/icons/refresh.svg"
-					alt="refresh"
-					class:rotating
-				/></ButtonIcon
-			>
-		</h2>
-		<p>Private games: {privateGames}</p>
-		<p>
-			Public games: {typeof publicGames === 'undefined'
-				? 'N/A'
-				: publicGames.length}
-		</p>
-		<Table minWidthPx={600}>
-			<div slot="head">
-				<TableRow {columnWidths}>
-					<TableCell>Game ID</TableCell>
-					<TableCell>Players</TableCell>
-					<TableCell>Actions</TableCell>
-				</TableRow>
-			</div>
-			<div slot="body">
-				{#if publicGames?.length > 0}
-					{#each publicGames as { id, players }}
-						<GameRow {id} {players} {columnWidths} />
-					{/each}
-				{:else}
-					<TableEmpty>There are no public games at the moment.</TableEmpty>
-				{/if}
-			</div>
-		</Table>
-	</section>
-</main>
+<section>
+	<h2>About</h2>
+	<p>{$gameDescription}</p>
+</section>
+<section>
+	<h2>
+		<span>Games</span>
+		<ButtonIcon
+			title={'refresh'}
+			on:click={() => {
+				refreshGames();
+				rotate();
+			}}
+			><img src="/icons/refresh.svg" alt="refresh" class:rotating /></ButtonIcon
+		>
+	</h2>
+	<p>Private games: {privateGames}</p>
+	<p>
+		Public games: {typeof publicGames === 'undefined'
+			? 'N/A'
+			: publicGames.length}
+	</p>
+	<Table mobileModeWidthPx={900} bind:mobileMode>
+		<div slot="head">
+			<TableRow {columnWidths} mobileMode={false}>
+				<TableCell>Game ID</TableCell>
+				<TableCell>Players</TableCell>
+				<TableCell>Actions</TableCell>
+			</TableRow>
+		</div>
+		{#if publicGames?.length > 0}
+			{#each publicGames as { id, players }}
+				<GameRow {id} {players} {columnWidths} {mobileMode} />
+			{/each}
+		{:else}
+			<TableEmpty>There are no public games at the moment.</TableEmpty>
+		{/if}
+	</Table>
+</section>
 
 <style lang="scss" scoped>
 	h2 {

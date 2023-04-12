@@ -1,21 +1,27 @@
 <script lang="ts">
-	export let minWidthPx: number;
+	export let mobileModeWidthPx: number;
+	let containerWidth: number;
+	export let mobileMode = false;
+	$: mobileMode = containerWidth < mobileModeWidthPx;
+	$: console.log(mobileMode);
 </script>
 
-<div class="container">
-	<div class="table" style="min-width: {minWidthPx}px;">
-		<div class="head">
-			<slot name="head" />
-		</div>
+<div class="container" bind:clientWidth={containerWidth}>
+	<div class="table">
+		{#if !mobileMode}
+			<div class="head">
+				<slot name="head" />
+			</div>
+		{/if}
 		<div class="body">
-			<slot name="body" />
+			<slot/>
 		</div>
 	</div>
 </div>
 
 <style lang="scss" scoped>
 	div.container {
-		overflow-x: auto;
+		overflow-x: hidden;
 		div.table {
 			margin-top: var(--padding);
 			border: 1px solid var(--background-light);

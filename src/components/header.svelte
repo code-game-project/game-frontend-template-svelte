@@ -10,35 +10,40 @@
 </svelte:head>
 
 <header>
-	<div class="super">
-		<a href="/" use:link>
-			<h1>
-				{$gameName}
-				{#if $gameVersion}v{$gameVersion}{/if}
-			</h1>
-		</a>
-		<nav>
-			<ButtonAnchor href="/debug">Console</ButtonAnchor>
-			{#if $repoUrl}
-				<ButtonAnchor href={$repoUrl}>Repository</ButtonAnchor>
-			{/if}
-		</nav>
-	</div>
-	<div class="sub">
+	<a href="/" use:link>
+		<h1>
+			{$gameName}
+			{#if $gameVersion}v{$gameVersion}{/if}
+		</h1>
 		<GameVersionBadge />
-	</div>
+	</a>
+	<nav>
+		<ButtonAnchor href="/debug">
+			<img slot="icon" src="/icons/debug.svg" alt="debug" />
+			Console
+		</ButtonAnchor>
+		{#if $repoUrl}
+			<ButtonAnchor href={$repoUrl}>
+				<img slot="icon" src="/icons/git.svg" alt="git" />
+				Repository
+			</ButtonAnchor>
+		{/if}
+	</nav>
 </header>
 
 <style lang="scss" scoped>
 	header {
-		div.super {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		row-gap: var(--padding);
+		a {
+			flex-shrink: 1;
+		}
+		nav {
 			display: flex;
-			justify-content: space-between;
-			nav {
-				display: flex;
-				justify-content: space-evenly;
-				gap: 5px;
-			}
+			justify-content: space-evenly;
+			gap: 5px;
 		}
 	}
 </style>
