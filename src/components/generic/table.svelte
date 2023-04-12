@@ -23,7 +23,6 @@
 	div.container {
 		overflow-x: hidden;
 		div.table {
-			margin-top: var(--padding);
 			border: 1px solid var(--background-light);
 			border-radius: var(--radius);
 			div.head {

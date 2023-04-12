@@ -60,6 +60,7 @@
 			? 'N/A'
 			: publicGames.length}
 	</p>
+	<h3>Public Games</h3>
 	<Table mobileModeWidthPx={900} bind:mobileMode>
 		<div slot="head">
 			<TableRow {columnWidths} mobileMode={false}>
@@ -79,8 +80,11 @@
 </section>
 
 <style lang="scss" scoped>
-	h2 {
+	h2,
+	h3 {
 		margin-top: var(--padding);
+	}
+	h2 {
 		display: flex;
 		gap: var(--half-padding);
 		img {

@@ -21,6 +21,7 @@
 
 {#if visible}
 	<div class="log">
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div class="top" on:click={() => (unfolded = !unfolded)}>
 			<img src="/icons/{severity}.svg" alt={severity.toUpperCase()} />
 			<div>
