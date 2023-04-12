@@ -3,7 +3,6 @@
 	let containerWidth: number;
 	export let mobileMode = false;
 	$: mobileMode = containerWidth < mobileModeWidthPx;
-	$: console.log(mobileMode);
 </script>
 
 <div class="container" bind:clientWidth={containerWidth}>
