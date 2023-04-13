@@ -2,6 +2,8 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 	import ButtonIcon from './button-icon.svelte';
 	const dispatch = createEventDispatcher();
+	import minimize from '../../icons/minimize.svg';
+	import maximize from '../../icons/maximize.svg';
 
 	export let height: number;
 
@@ -79,11 +81,11 @@
 		<div id="controls">
 			{#if isFullscreen}
 				<ButtonIcon on:click={fsToggle}
-					><img src="/icons/minimize.svg" alt="Exit full screen" /></ButtonIcon
+					><img src={minimize} alt="Exit full screen" /></ButtonIcon
 				>
 			{:else}
 				<ButtonIcon on:click={fsToggle}
-					><img src="/icons/maximize.svg" alt="Show in full screen" />
+					><img src={maximize} alt="Show in full screen" />
 				</ButtonIcon>
 			{/if}
 		</div>

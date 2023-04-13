@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Tooltip from './tooltip.svelte';
 	import ButtonIcon from './button-icon.svelte';
+	import check from '../../icons/check.svg';
+	import copy from '../../icons/copy.svg';
 
 	export let text: string | undefined;
 	let textInternal = text || 'N/A';
@@ -16,9 +18,9 @@
 		}}
 	>
 		{#if active}
-			<img src="/icons/check.svg" alt="check" />
+			<img src={check} alt="check" />
 		{:else}
-			<img src="/icons/copy.svg" alt="copy" />
+			<img src={copy} alt="copy" />
 		{/if}
 	</ButtonIcon>
 </Tooltip>

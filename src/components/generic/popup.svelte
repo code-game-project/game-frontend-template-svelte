@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import ButtonIcon from './button-icon.svelte';
 	const dispatch = createEventDispatcher();
+	import x from '../../icons/x.svg';
 
 	export let title: string;
 
@@ -27,7 +28,7 @@
 		<div class="header">
 			<h2>{title}</h2>
 			<ButtonIcon on:click={() => dispatch('close')}
-				><img src="/icons/x.svg" alt="X" /></ButtonIcon
+				><img src={x} alt="X" /></ButtonIcon
 			>
 		</div>
 		<div>

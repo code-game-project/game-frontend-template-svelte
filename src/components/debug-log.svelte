@@ -1,6 +1,18 @@
 <script lang="ts">
 	import Prism from 'prismjs';
 	import type { Severity } from '@code-game-project/client/dist/browser';
+	import error from '../icons/error.svg';
+	import warning from '../icons/warning.svg';
+	import info from '../icons/info.svg';
+	import trace from '../icons/trace.svg';
+	import arrowRight from '../icons/arrow-right.svg';
+
+	const severityIcons: { [key in Severity]: string } = {
+		error,
+		warning,
+		info,
+		trace,
+	};
 
 	export let visible: boolean;
 	export let severity: Severity;
@@ -23,7 +35,7 @@
 	<div class="log">
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div class="top" on:click={() => (unfolded = !unfolded)}>
-			<img src="/icons/{severity}.svg" alt={severity.toUpperCase()} />
+			<img src={severityIcons[severity]} alt={severity.toUpperCase()} />
 			<div>
 				<div>
 					<span class="mono">[{timeReceived}]</span>
@@ -33,12 +45,7 @@
 					<span>{message}</span>
 				</div>
 				{#if formattedData}
-					<img
-						src="/icons/arrow-right.svg"
-						alt="arrow"
-						class:unfolded
-						title="Show more"
-					/>
+					<img src={arrowRight} alt="arrow" class:unfolded title="Show more" />
 				{/if}
 			</div>
 		</div>

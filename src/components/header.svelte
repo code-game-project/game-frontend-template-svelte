@@ -3,6 +3,8 @@
 	import { gameName, gameVersion, repoUrl } from '../stores';
 	import ButtonAnchor from './generic/button-anchor.svelte';
 	import GameVersionBadge from './game-version-badge.svelte';
+	import debug from '../icons/debug.svg';
+	import git from '../icons/git.svg';
 </script>
 
 <svelte:head>
@@ -19,12 +21,12 @@
 	</a>
 	<nav>
 		<ButtonAnchor href="/debug">
-			<img slot="icon" src="/icons/debug.svg" alt="debug" />
+			<img slot="icon" src={debug} alt="debug" />
 			Console
 		</ButtonAnchor>
 		{#if $repoUrl}
 			<ButtonAnchor href={$repoUrl}>
-				<img slot="icon" src="/icons/git.svg" alt="git" />
+				<img slot="icon" src={git} alt="git" />
 				Repository
 			</ButtonAnchor>
 		{/if}

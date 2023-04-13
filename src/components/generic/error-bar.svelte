@@ -2,6 +2,7 @@
 	import ButtonIcon from './button-icon.svelte';
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
+	import trash from '../../icons/trash.svg';
 
 	export let message: string;
 </script>
@@ -10,7 +11,7 @@
 	<div class="error-container">
 		<div>{message}</div>
 		<ButtonIcon on:click={() => dispatch('dismiss')}
-			><img src="/icons/trash.svg" alt="dismiss" /></ButtonIcon
+			><img src={trash} alt="dismiss" /></ButtonIcon
 		>
 	</div>
 </div>
@@ -20,7 +21,7 @@
 		background-color: hsl(0, 80%, 50%);
 		padding: var(--padding);
 		div.error-container {
-			max-width: 1000px;
+			max-width: 1300px;
 			margin: 0 auto;
 			display: flex;
 			justify-content: space-between;

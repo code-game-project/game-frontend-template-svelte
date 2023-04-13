@@ -10,6 +10,10 @@
 	import Fullscreen from '../components/generic/fullscreen.svelte';
 	import DebugLog from '../components/debug-log.svelte';
 	import ButtonIcon from '../components/generic/button-icon.svelte';
+	import error from '../icons/error.svg';
+	import warning from '../icons/warning.svg';
+	import info from '../icons/info.svg';
+	import trace from '../icons/trace.svg';
 
 	let present: { [K in Severity]: boolean } = {
 		error: false,
@@ -129,7 +133,7 @@
 							: 'to'} filter."
 						on:click={() => (filter[Severity.ERROR] = !filter[Severity.ERROR])}
 					>
-						<img src="/icons/error.svg" alt="Error" />
+						<img src={error} alt="Error" />
 					</ButtonIcon>
 				</div>
 				<div>
@@ -143,7 +147,7 @@
 						on:click={() =>
 							(filter[Severity.WARNING] = !filter[Severity.WARNING])}
 					>
-						<img src="/icons/warning.svg" alt="warning" />
+						<img src={warning} alt="warning" />
 					</ButtonIcon>
 				</div>
 				<div>
@@ -156,7 +160,7 @@
 							: 'to'} filter."
 						on:click={() => (filter[Severity.INFO] = !filter[Severity.INFO])}
 					>
-						<img src="/icons/info.svg" alt="info" />
+						<img src={info} alt="info" />
 					</ButtonIcon>
 				</div>
 				<div>
@@ -169,7 +173,7 @@
 							: 'to'} filter."
 						on:click={() => (filter[Severity.TRACE] = !filter[Severity.TRACE])}
 					>
-						<img src="/icons/trace.svg" alt="trace" />
+						<img src={trace} alt="trace" />
 					</ButtonIcon>
 				</div>
 			</div>

@@ -11,6 +11,7 @@
 	import TableCell from '../components/generic/table-cell.svelte';
 	import GameRow from '../components/game-row.svelte';
 	import { scopeStore } from '../scoping';
+	import refresh from '../icons/refresh.svg';
 
 	let privateGames: number | 'N/A' = 'N/A';
 	let publicGames: { id: string; players: number }[];
@@ -50,8 +51,7 @@
 			on:click={() => {
 				refreshGames();
 				rotate();
-			}}
-			><img src="/icons/refresh.svg" alt="refresh" class:rotating /></ButtonIcon
+			}}><img src={refresh} alt="refresh" class:rotating /></ButtonIcon
 		>
 	</h2>
 	<p>Private games: {privateGames}</p>
