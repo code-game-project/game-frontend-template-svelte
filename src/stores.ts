@@ -6,7 +6,7 @@ export const gameName = writable('N/A');
 export const gameVersion = writable('N/A');
 export const gameDescription = writable('N/A');
 export const cgVersion = writable('N/A');
-export const repoUrl = writable('N/A');
+export const repoUrl = writable('');
 
 export const initInfo = async () => {
   const info = await api.getInfo(window.fetch, config.gameURL);
